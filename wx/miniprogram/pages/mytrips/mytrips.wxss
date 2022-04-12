@@ -1,0 +1,19 @@
+/* pages/mytrips/mytrips.wxss */
+@import "../../colorui/main.wxss";
+@import "../../colorui/icon.wxss";
+swiper{
+    width: 100%;
+    height: 300rpx;
+}
+.avatar-container{
+    padding-top: 50rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.trip{
+    font-size: 40rpx;
+}
+.action{
+    margin-top: 60rpx;
+}

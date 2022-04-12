@@ -1,0 +1,75 @@
+<!--pages/mytrips/mytrips.wxml-->
+
+<swiper
+  id="heading"
+  indicator-dots="{{indicatorDots}}"
+  indicator-color="{{indicatorColor}}"
+  autoplay="{{autoplay}}"
+  current="{{current}}"
+  interval="{{interval}}"
+  duration="{{duration}}"
+  circular="{{circular}}"
+  vertical="{{vertical}}"
+  previous-margin="{{previousMargin}}"
+  display-multiple-items="{{displayMultipleItems}}"
+  next-margin="{{nextMargin}}"
+  bindchange="{{onSwiperChange}}"
+  bindanimationfinish="{{bindanimationfinish}}"
+>
+  <swiper-item
+    wx:for="{{promotionItems}}"
+    wx:key="promotionId"
+    bindtap="onPromotionItemTap"
+    data-promotion-id="{{item.promotionId}}"
+  >
+    <image class="swiper-image" src="{{item.img}}">
+
+    </image>
+  </swiper-item>
+</swiper>
+<view class="avatar-container" wx:if="{{!isCertification}}">
+  <button
+    wx:if="{{!hasUserInfo}}"
+    class="cu-avatar round lg bg-grey margin-xs"
+    bindtap="getUserProfile"
+    disabled="{{hasUserInfo}}"
+  >
+    <text class="cuIcon-people" ></text>
+  </button>
+  <image
+    wx:if="{{hasUserInfo}}"
+    src="{{avatarURL}}"
+    class="cu-avatar round lg bg-grey margin-xs"
+  >
+  </image>
+  <view bindtap="onRegisterTap">驾驶资格未认证</view>
+</view>
+<scroll-view
+  wx:if="{{isCertification}}"
+  class=""
+  scroll-x="false"
+  scroll-y="true"
+  upper-threshold="50"
+  lower-threshold="50"
+  scroll-top="0"
+  scroll-left="0"
+  scroll-into-view=""
+  scroll-with-animation="true"
+  enable-back-to-top="true"
+  bindscrolltoupper=""
+  bindscrolltolower=""
+  bindscroll=""
+  style="height:{{tripsHeight}}px"
+>
+  <view class="trip">
+    <view
+      class='action'
+      wx:for="{{trips}}"
+      wx:key="id"
+    >
+      <text class='cuIcon-title text-green'></text>
+      {{item.id}}
+    </view>
+  </view>
+</scroll-view>
+

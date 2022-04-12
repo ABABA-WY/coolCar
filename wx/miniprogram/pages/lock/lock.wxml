@@ -1,0 +1,46 @@
+<!--pages/lock/lock.wxml-->
+<view class="container-lock">
+  <view class="static">
+    <image class="car1" src="../image/cars/car1.png"></image>
+    <view class="solids-bottom padding-xs flex align-center">
+      <view class="flex-sub text-center">
+        <view class="solid-bottom text-xl padding">
+          <view class="text-black text-bold">请安全驾驶</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="avatar-container">
+    <button
+      wx:if="{{!hasUserInfo}}"
+      class="cu-avatar round lg bg-grey margin-xs"
+      bindtap="getUserProfile"
+      disabled="{{hasUserInfo}}"
+    >
+      <text class="cuIcon-people" ></text>
+    </button>
+    <image
+      wx:if="{{hasUserInfo}}"
+      src="{{avatarURL}}"
+      class="cu-avatar round lg bg-grey margin-xs"
+    >
+    </image>
+    <view class="choose">
+      <view class="cu-form-group margin-top">
+        <view class="title" wx:if="{{hasUserInfo}}">展示头像</view>
+        <switch
+          bindchange="onShare"
+          checked="{{Share}}"
+          wx:if="{{hasUserInfo}}"
+        ></switch>
+        <view class="title" wx:if="{{!hasUserInfo}}">获取权限</view>
+      </view>
+    </view>
+  </view>
+  <view class="padding flex flex-direction">
+    <button class="cu-btn bg-blue margin-tb-sm lg" bindtap="onUnlock">
+      立即开锁
+    </button>
+  </view>
+</view>
+
