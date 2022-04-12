@@ -1,0 +1,100 @@
+<!--pages/register/register.wxml-->
+<view class="container padding top xl">
+  <view
+    class="lic-tmpl"
+    wx:if="{{!licImageURL}}"
+    bindtap="onUpload"
+  >
+    <image class="lic-tmpl image" src="../image/lic.png"></image>
+    <view class="cuIcon-camera lg text-gray"></view>
+    <view class="instruction">上传图片</view>
+  </view>
+  <block wx:else>
+    <view class="lic-tmpl">
+      <image class="stretch" src="{{licImageURL}}"></image>
+    </view>
+    <view class="lic-form">
+      <view class="cu-form-group">
+        <view class="title">驾驶证号</view>
+        <input
+          placeholder=""
+          value="{{licNo}}"
+          disabled="{{state!=='unsubmitted'}}"
+        ></input>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">姓名</view>
+        <input
+          placeholder=""
+          value="{{licName}}"
+          disabled="{{state!=='unsubmitted'}}"
+        ></input>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">性别</view>
+        <picker
+          bindchange="onGenderChange"
+          value="{{genderIndex}}"
+          range="{{genders}}"
+          disabled="{{state!=='unsubmitted'}}"
+        >
+          <view class="picker">
+            {{genders[genderIndex]}}
+          </view>
+        </picker>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">出生日期</view>
+        <picker
+          mode="date"
+          value="{{birthDate}}"
+          bindchange="onBirthdayChange"
+          disabled="{{state!=='unsubmitted'}}"
+        >
+          <view class="picker">
+            {{birthDate}}
+          </view>
+        </picker>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">手机号码</view>
+        <input
+          placeholder=""
+          value="{{phone}}"
+          disabled="{{state!=='unsubmitted'}}"
+        ></input>
+      </view>
+    </view>
+    <view class="padding flex flex-direction">
+      <button
+        wx:if="{{state==='unsubmitted'}}"
+        class="cu-btn bg-red margin-tb-sm lg"
+        bindtap="onSubmit"
+      >递交审查
+      </button>
+      <button
+        wx:if="{{state==='pending'}}"
+        class="cu-btn block bg-red margin-tb-sm lg"
+        disabled
+        type=""
+      >
+        <text class="cuIcon-loading2 iconfont-spin"></text>
+        审查中
+      </button>
+      <button
+        wx:if="{{state==='submittedSucceed'}}"
+        class="cu-btn block bg-blue margin-tb-sm lg"
+        bindtap="onSubmittedSucceed"
+      >
+        下一步
+      </button>
+      <button
+        wx:if="{{state==='verified'}}"
+        class="cu-btn bg-red margin-tb-sm lg"
+        bindtap="onReSubmit"
+      >重新审查
+      </button>
+    </view>
+  </block>
+</view>
+

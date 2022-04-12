@@ -1,19 +1,44 @@
-/**index.wxss**/
-.userinfo {
+@import "../../colorui/main.wxss";
+@import "../../colorui/icon.wxss";
+page{
+  width: 100%;
+  height: 100%;
+}
+#map{
+  width: 100%;
+  height: 100vh;
+}
+
+.icon-container{
+  width: 85rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #aaa;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  height: 150rpx;
+  opacity: .6;
 }
-
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.icon-container.cover-image{
+  width: 60rpx;
+  height: 80rpx;
 }
-
-.usermotto {
-  margin-top: 200px;
+.button-container.bg-grey{
+  color: var(--white);
+  background-color: var(--grey);
+  width: 600rpx;
+  height: 65rpx;
+  margin-left: 75rpx;
+  bottom: 7%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50rpx;
+}
+.choose{
+  display: flex;
+}
+.round{
+  border-radius:50%;
 }

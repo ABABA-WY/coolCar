@@ -1,0 +1,24 @@
+<!--pages/learncss/learncss.wxml-->
+<view class="container">
+  <text
+  wx:if="{{showPass}}"
+>hello
+  </text>
+  <block wx:else>
+    <text >sb</text>
+  </block>
+  <view
+    class="item cu-avatar xl radius {{val.id%2?'blue':'red'}}"
+    wx:for="{{values}}"
+    wx:for-index="idx"
+    wx:for-item="val"
+    wx:key="id"
+  >
+    {{val.id}} :value is {{val.name}}
+    <view class="cu-tag badge">
+      99+
+    </view>
+  </view>
+
+</view>
+
