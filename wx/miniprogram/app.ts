@@ -1,6 +1,7 @@
 //import { getSetting, getUserInfo } from "./utils/util"
-let resolveUserInfo :(value: WechatMiniprogram.UserInfo | PromiseLike<WechatMiniprogram.UserInfo>) => void
-let rejectUserInfo:(reason?: any) => void
+import {IAppOption} from "./appoption"
+import {coolcar} from "./service/proto_gen/trip_pb";
+import camelcaseKeys from "camelcase-keys";
 // app.ts
 App<IAppOption>({
   globalData: {
@@ -15,7 +16,19 @@ App<IAppOption>({
   },
 
   onLaunch() {
-    // 展示本地存储能力
+
+    //请求
+    wx.request({
+      url:"http://127.0.0.1:8000/trip/123",
+      method: "GET",
+      success : res=> {
+          const getTripResponse = coolcar.GetTripResponse.fromObject(camelcaseKeys(res.data as object),)//驼峰命名
+          console.log( getTripResponse)
+      },
+      fail : function(res) {
+          console.error(res.errMsg)
+      }
+    })
 
     // 登录
     wx.login({
