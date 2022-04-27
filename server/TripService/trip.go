@@ -3,6 +3,7 @@ package TripService
 import (
 	"context"
 	trippb "coolcar/proto/gen/go"
+	rentalpb "coolcar/rental/api/gen/v1"
 )
 
 //type TripServiceServer interface {
@@ -11,6 +12,11 @@ import (
 //}
 
 type Service struct {
+}
+
+func (s *Service) CreateTrip(ctx context.Context, request *rentalpb.CreateTripRequest) (*rentalpb.CreateTripResponse, error) {
+	//TODO implement me
+	panic("implement me")
 }
 
 func (s *Service) mustEmbedUnimplementedTripServiceServer() {

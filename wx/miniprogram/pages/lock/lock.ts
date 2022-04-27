@@ -1,6 +1,8 @@
 // pages/lock/lock.ts
+import {IAppOption} from "../../appoption"
 //开锁
 import { routing } from "../../utils/routing";
+//import {TripService} from "../../service/trip";
 
 const newShare = "Share";
 const newavatarUrl = "newavatarUrl";
@@ -161,6 +163,10 @@ Page({
             //todo双向绑定
             avatarURL: this.data.Share ? this.data.avatarURL : '',
           })
+          // TripService.CreateTrip({
+          //    code:'abc',
+          // })
+          // return
           const tripID = 'trip123';
           wx.showLoading({
             title: '开锁中',
