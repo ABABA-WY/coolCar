@@ -53,8 +53,8 @@ func main() {
 		RegisterFunc: func(s *grpc.Server) {
 			authpb.RegisterAuthServiceServer(s, &auth.Service{
 				Logeer:         logger,
-				Mongo:          dao.NewMongo(client.Database("coolcar"), "account"),
-				TokenExpire:    10 * time.Second,
+				Mongo:          dao.NewMongo(client.Database("coolcar")),
+				TokenExpire:    10 * time.Hour,
 				TokenGenerator: token.NewJWTTokenGen("coolcar/auth", key),
 				OpenIDResolver: &wechat.Service{
 					AppID:     "wx2d6e57c8ad43a3ff",

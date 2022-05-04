@@ -2,12 +2,12 @@ package dao
 
 import (
 	"context"
-	mongotesting "coolcar/shared/testing"
+	id2 "coolcar/shared/id"
+	mgutil "coolcar/shared/mongo"
+	"coolcar/shared/mongo/objid"
+	mongotesting "coolcar/shared/mongo/testing"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"os"
 	"testing"
 )
@@ -19,19 +19,19 @@ var mongoURI = "mongodb://admin:123456@localhost:27017"
 func TestResolveAccountID(t *testing.T) {
 	fmt.Println(mongoURI)
 	c := context.Background()
-	client, err := mongo.Connect(c, options.Client().ApplyURI(mongoURI))
+	client, err := mongotesting.NewMongoClient(c)
 	if err != nil {
 		t.Fatalf("cannot connect mongodb:%v\n", err)
 	}
-	m := NewMongo(client.Database("coolcar"), "account")
+	m := NewMongo(client.Database("coolcar"))
 	_, err = m.col.InsertMany(c, []interface{}{
 		bson.M{
-			mongotesting.IDField: mustObjID("625905883b4ae1a7857692aa"),
-			openIDField:          "456",
+			mgutil.IDFieldName: objid.MustFromID(id2.AccountID("625905883b4ae1a7857692aa")),
+			openIDField:        "456",
 		},
 		bson.M{
-			mongotesting.IDField: mustObjID("625905883b4ae1a7857bbbbb"),
-			openIDField:          "789",
+			mgutil.IDFieldName: objid.MustFromID(id2.AccountID("625905883b4ae1a7857bbbbb")),
+			openIDField:        "789",
 		},
 	})
 	if err != nil {
@@ -46,21 +46,15 @@ func TestResolveAccountID(t *testing.T) {
 		t.Error(err)
 	} else {
 		want := "625905883b4ae1a7857bbbbb"
-		if want != id {
+		if want != id.String() {
 			t.Errorf("not this openID")
 		}
 
 	}
 	fmt.Println("ID:", id)
 }
-func mustObjID(hex string) primitive.ObjectID {
-	objID, err := primitive.ObjectIDFromHex(hex)
-	if err != nil {
-		panic(err)
-	}
-	return objID
-}
+
 func TestMain(m *testing.M) {
 	fmt.Println("main")
-	os.Exit(mongotesting.RunWithMongoInDocker(m, &mongoURI))
+	os.Exit(mongotesting.RunWithMongoInDocker(m))
 }

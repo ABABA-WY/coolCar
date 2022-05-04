@@ -91,7 +91,7 @@ module.exports = factory(factory);
  * @returns {number} Value read
  */
 
-// Factory function for the purpose of node-based testing in modified global environments
+// Factory function for the purpose of node-based mongo in modified global environments
 function factory(exports) {
 
     // float: typed array

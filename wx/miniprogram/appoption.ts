@@ -7,7 +7,7 @@ export interface IAppOption {
         avatarURL:string,
         userInfo:{},
         userInfoStr :string,
-
+        isCertification:boolean,
     }
     //resolveUserInfo(userInfo:WechatMiniprogram.UserInfo):void
     onLoad():void,

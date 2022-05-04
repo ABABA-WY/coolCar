@@ -32,13 +32,17 @@ func main() {
 			registerFunc: authpb.RegisterAuthServiceHandlerFromEndpoint,
 		},
 		{
-			name:         "rental",
+			name:         "trip",
 			addr:         "127.0.0.1:8002",
 			registerFunc: rentalpb.RegisterTripServiceHandlerFromEndpoint,
 		},
+		{
+			name:         "profile",
+			addr:         "127.0.0.1:8002",
+			registerFunc: rentalpb.RegisterProfileServiceHandlerFromEndpoint,
+		},
 	}
 	for _, s := range serverConfig {
-		//88fmt.Println(s.name)
 		err := s.registerFunc(c, mux, s.addr, []grpc.DialOption{grpc.WithInsecure()})
 		if err != nil {
 			logger.Sugar().Fatalf("cannot register %s service: %v\n", s.name, err)

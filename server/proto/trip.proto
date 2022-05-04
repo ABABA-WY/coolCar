@@ -27,6 +27,9 @@ message Trip{
     string id = 1;
     Trip trip = 2;
  }
+
+
  service  TripService{
     rpc GetTrip (GetTripRequest) returns (GetTripResponse);
+
  }

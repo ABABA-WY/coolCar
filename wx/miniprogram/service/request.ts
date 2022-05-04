@@ -27,9 +27,12 @@ export namespace Coolcar{
         }
         try {
             await login()
-            return sendRequest(req,a)
+            //console.log("req:",req)
+            return sendRequest(req,authOpt)
         }catch (err) {
             if (err === AUTH_ERR && authOpt.retryAuthERR) {
+                authData.token = ''
+                authData.expiresMs = 0
                 return  sendRequestWithAuthRetry(req, {
                     attachAuthHeader: authOpt.attachAuthHeader,
                     retryAuthERR: false,
@@ -48,7 +51,7 @@ export namespace Coolcar{
         }
         const wxResp = await wxLogin()
         const reqTime = Date.now()
-        const response = await sendRequest<auth.v1.ILoginRequest,auth.v1.LoginResponse>({
+        const response = await sendRequest<auth.v1.ILoginRequest,auth.v1.ILoginResponse>({
             path: "/v1/auth/login",
             method: "POST",
             data: {
@@ -65,28 +68,27 @@ export namespace Coolcar{
     }
 
     //发送请求
-    function sendRequest<REQ,RES>(req :RequestOption<REQ,RES>,a?:AuthOption) :Promise<RES>{
-        //有a用a
-        const authOpt = a ||{
-            attachAuthHeader : true
-        }
+    function sendRequest<REQ,RES>(req :RequestOption<REQ,RES>,a:AuthOption) :Promise<RES>{
+
         return new Promise((resolve,reject)=>{
             const  header: Record<string, any>= {}
-            if (authOpt.attachAuthHeader ){
+            if (a.attachAuthHeader ){
                 if(authData.token && authData.expiresMs >= Date.now()){
                     header.authorization = 'Bearer '+authData.token
+                    //console.log(header.authorization)
                 }else{
                     reject(AUTH_ERR)
                     return
                 }
             }
-
+            console.log(serverAddr+req.path)
             wx.request({
                 url :serverAddr+req.path,
                 method:req.method,
                 data:req.data,
                 header,
                 success:res=>{
+                    //console.log("res:",res)
                     //头部无效||不加头部的token
                     if(res.statusCode === 401){
                         //清除状态
@@ -96,7 +98,7 @@ export namespace Coolcar{
                     }else if(res.statusCode >= 400){
                         reject(res)
                     }else{
-                        resolve(req.resMarshaller(camelcaseKeys(res.data as unknown as object,{deep:true})))
+                        resolve(req.resMarshaller(camelcaseKeys(res.data as object,{deep:true})))
                     }
                 },
                 fail :reject,

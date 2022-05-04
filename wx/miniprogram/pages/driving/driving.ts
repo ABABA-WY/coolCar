@@ -78,6 +78,11 @@ Page({
     },1000)
 
   },
+  onEndTrip(){
+    wx.redirectTo({
+      url:routing.index(),
+    })
+  },
 })
 
 //计算时间

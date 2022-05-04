@@ -1,8 +1,8 @@
 //import { getSetting, getUserInfo } from "./utils/util"
 import {IAppOption} from "./appoption"
-//import {auth} from "./service/proto_gen/auth/auth_pb";
-//import camelcaseKeys from "camelcase-keys";
-//import {rental} from "./service/proto_gen/rental/rental_pb";
+// import {auth} from "./service/proto_gen/auth/auth_pb";
+// import camelcaseKeys from "camelcase-keys";
+// import {rental} from "./service/proto_gen/rental/rental_pb";
 import {Coolcar} from "./service/request";
 // import {coolcar} from "./service/proto_gen/trip_pb";
 // import camelcaseKeys from "camelcase-keys";
@@ -17,12 +17,13 @@ App<IAppOption>({
         avatarURL: '',
         userInfo: {},
         userInfoStr: '',
+        isCertification:false,
     },
 
     onLaunch() {
 
         Coolcar.login()
-        // 登录
+        //登录
         // wx.login({
         //     success: res => {
         //         console.log(res.code)
@@ -40,14 +41,11 @@ App<IAppOption>({
         //                 wx.request({
         //                     url: "http://127.0.0.1:8000/v1/trip",
         //                     method: "POST",
-        //                     data: {
-        //                         code:'abc',
-        //                     } as rental.v1.ICreateTripRequest,
         //                     header: {
         //                         authorization: 'Bearer ' + loginResponse.accessToken,
         //                     },
         //                     success: res => {
-        //                         const createTripRequest: rental.v1.CreateTripResponse = rental.v1.CreateTripResponse.fromObject(camelcaseKeys(res.data as object))
+        //                         const createTripRequest: rental.v1.ITripEntity = rental.v1.TripEntity.fromObject(camelcaseKeys(res.data as object))
         //                         console.log(createTripRequest)
         //                     },
         //                     fail: console.error,
@@ -77,7 +75,7 @@ App<IAppOption>({
         wx.getUserProfile({
             desc: '用于微信账号与平台账号绑定', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
             success: (res) => {
-                console.log("获取到的用户信息成功: ", JSON.stringify(res));
+                console.log("获取用户信息成功");
                 //wx.setStorageSync(newavatarUrl,res.userInfo.avatarUrl);
                 this.globalData.hasUserInfo = true;
                 this.globalData.userInfo = res;

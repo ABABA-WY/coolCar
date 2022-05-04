@@ -1,5 +1,6 @@
 // pages/mytrips/mytrips.ts
 
+import { IAppOption } from "../../appoption";
 import { routing } from "../../utils/routing";
 interface Trip{
   id:string,
@@ -22,7 +23,7 @@ Page({
     avatarURL: getApp<IAppOption>().globalData.avatarURL,
     userInfo: getApp<IAppOption>().globalData.userInfo,
     userInfoStr: getApp<IAppOption>().globalData.userInfoStr,
-    isCertification:true,//是否认证
+    isCertification:getApp<IAppOption>().globalData.isCertification,//是否认证
     indicatorDots:true,//是否显示面板指示点
     indicatorColor:'',//指示点颜色
     autoplay:false,//是否自动切换
@@ -73,6 +74,7 @@ Page({
       userInfo: getApp<IAppOption>().globalData.userInfo,
       userInfoStr: getApp<IAppOption>().globalData.userInfoStr,
       avatarURL: getApp<IAppOption>().globalData.avatarURL,
+      isCertification:getApp<IAppOption>().globalData.isCertification,
     })
 
   },

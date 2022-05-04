@@ -49,7 +49,7 @@ Page({
     wx.getUserProfile({
       desc: '用于微信账号与平台账号绑定', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
-        console.log("获取到的用户信息成功: ", JSON.stringify(res));
+        console.log("获取用户信息成功");
         this.setData({
           hasUserInfo: true,
           userInfo: res,

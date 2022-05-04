@@ -1,6 +1,7 @@
 // pages/register/register.ts
 
 import { routing } from "../../utils/routing";
+import {IAppOption} from "../../appoption";
 
 //审查
 Page({
@@ -16,7 +17,8 @@ Page({
     genders:["其他","男","女","其他"],
     birthDate:'1980-01-01',
     phone:'',
-    state:'unsubmitted' as 'unsubmitted'|'pending'|'submittedFailed'|'submittedSucceed'
+    state:'unsubmitted' as 'unsubmitted'|'pending'|'submittedFailed'|'submittedSucceed',
+    isCertification:false,
   },
   redirectURL:'',
   /**
@@ -77,9 +79,12 @@ Page({
   onVerified(){
     this.setData({
       state:'submittedSucceed',
+      isCertification:true,
     })
+    getApp<IAppOption>().globalData.isCertification = true
   },
   onSubmittedSucceed(){
+
     if(this.redirectURL){
       wx.redirectTo({
         url:this.redirectURL,

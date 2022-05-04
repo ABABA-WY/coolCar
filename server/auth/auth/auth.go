@@ -44,7 +44,7 @@ func (s *Service) Login(c context.Context, req *authpb.LoginRequest) (*authpb.Lo
 	}
 
 	//获取签名
-	token, err := s.TokenGenerator.GenerateToken(accountID, s.TokenExpire)
+	token, err := s.TokenGenerator.GenerateToken(accountID.String(), s.TokenExpire)
 	if err != nil {
 		s.Logeer.Error("cannot token generate:%v\n", zap.Error(err))
 		return nil, status.Errorf(codes.Internal, "cannot token generate")

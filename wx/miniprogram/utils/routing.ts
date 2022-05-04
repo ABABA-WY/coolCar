@@ -28,4 +28,7 @@ export namespace routing{
     export function mytrips(){
         return '../mytrips/mytrips'
     }
+    export function index(){
+        return '../index/index'
+    }
 }
